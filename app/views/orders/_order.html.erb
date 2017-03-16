@@ -1,0 +1,18 @@
+
+<article class="product">
+  <header>
+    <%= link_to orders.product do %>
+      <%= image_tag orders.product.image.thumb, alt: orders.product.name %>
+      <h4><%= orders.product.name %></h4>
+    <% end %>
+  </header>
+  <p class="description">
+    <%= orders.product.description %>
+  </p>
+
+  <aside class="price">
+    <p>Total quantity: <%= orders.product.quantity %></p>
+    <p>Payment Email: <%= @order.email%></p>
+    <p>Total Amount: <%= number_to_currency(@order.total_cents/100.00)%></p>
+  </aside>
+</article>
