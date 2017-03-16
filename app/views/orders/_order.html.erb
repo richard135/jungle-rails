@@ -1,4 +1,4 @@
-
+<% @total_items += orders.quantity %>
 <article class="product">
   <header>
     <%= link_to orders.product do %>
@@ -11,8 +11,7 @@
   </p>
 
   <aside class="price">
-    <p>Total quantity: <%= orders.product.quantity %></p>
+    <p>Quantity: <%= orders.quantity %></p>
     <p>Payment Email: <%= @order.email%></p>
-    <p>Total Amount: <%= number_to_currency(@order.total_cents/100.00)%></p>
   </aside>
 </article>

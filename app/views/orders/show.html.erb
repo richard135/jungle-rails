@@ -9,11 +9,15 @@
   </div>
 
   <div class="products">
+    <% @total_items = 0 %>
     <% @orders.each do |u| %>
       <%= render partial: "order", locals: {orders: u} %>
     <% end %>
   </div>
-
+  <br>
+  <p>Total Amount: <%= number_to_currency(@order.total_cents/100.00)%></p>
+  <p>Total Items: <%= @total_items %></p>
   <%= link_to "Continue Shopping", root_path, class: 'btn btn-lg btn-primary' %>
+
 
 </section>
