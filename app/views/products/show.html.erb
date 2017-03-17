@@ -11,7 +11,6 @@
       <div class="col-sm-4">
         <%= image_tag @product.image.url, class: 'main-img' %>
       </div>
-
       <div class="col-sm-8">
         <dl class="dl-horizontal">
           <dt>Name</dt>
@@ -23,22 +22,29 @@
           <dt>Price</dt>
           <dd><%= @product.price %></dd>
           <dd><h3>Add Reviews below!</h3></dd>
-          <dd><%= form_for :review, url: product_reviews_path(@product) do |f| %>
-            Rating: <%= f.select :rating, [[1, 1], [2, 2], [3, 3], [4, 4], [5, 5]] %>
-            Review: <%= f.text_field :description %>
-            <%= f.submit "Submit" %>
+          <% if current_user %>
+            <dd><%= form_for :review, url: product_reviews_path(@product) do |f| %>
+              Rating: <%= f.select :rating, [[1, 1], [2, 2], [3, 3], [4, 4], [5, 5]] %>
+              Review: <%= f.text_field :description %>
+              <%= f.submit "Submit" %>
+            <% end %>
+          <% else %>
+            <dd><h5> Login to add some reviews!</h5></dd>
           <% end %>
           </dd>
           <dd><h3>Reviews</h3></dt>
           <div class="review-table">
             <% @reviews.each do |review| %>
-                <% if @product.id === review.product_id %>
+              <% if @product.id === review.product_id %>
                 <dt>User <%=review.user_id%></dt>
                 <dd></dd>
                 <dt>Reviews</dt>
                 <dd><%= review.description %></dd>
                 <dt>Rating</dt>
                 <dd><%= review.rating %></dd>
+                <% if current_user.id === review.user_id %>
+                  <%= link_to "Delete", [@product, review], method: :delete  %>
+                <% end %>
                 <br>
               <% end %>
             <% end %>

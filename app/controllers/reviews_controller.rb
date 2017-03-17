@@ -1,4 +1,5 @@
 class ReviewsController < ApplicationController
+before_action :require_login
 
 def create
   @product = Product.find(params[:product_id])
@@ -13,6 +14,9 @@ end
 
 
 def destroy
+  review = Review.find(params[:id])
+  review.destroy
+  redirect_to :back
 end
 
   private
@@ -21,5 +25,12 @@ end
         :description,
         :rating
       )
+    end
+
+    def require_login
+      unless current_user
+        flash[:error] = "You must be logged in to access this section"
+        redirect_to '/login'# halts request cycle
+      end
     end
 end
