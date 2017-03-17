@@ -7,9 +7,12 @@
     <h1>Thank you for the purchase</h1>
     <p>Please see below for the total products you have ordered!</p>
     <p>Your total is: <%= number_to_currency(@order.total_cents/100.00) %></p>
+        <% @total_items = 0 %>
     <p><% LineItem.where(order_id: @order.id).each do |u| %>
-          <%= u.product_id %>
+          <%= u.product.name %>
+          <% @total_items += 1 %>
       <% end %>
+      The total items are: <%= @total_items %>
     </p>
   </body>
 </html>
