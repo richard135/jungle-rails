@@ -32,13 +32,15 @@
           <dd><h3>Reviews</h3></dt>
           <div class="review-table">
             <% @reviews.each do |review| %>
-              <dt>User <%=review.id%></dt>
-              <dd></dd>
-              <dt>Reviews</dt>
-              <dd><%= review.description %></dd>
-              <dt>Rating</dt>
-              <dd><%= review.rating %></dd>
-              <br>
+                <% if @product.id === review.product_id %>
+                <dt>User <%=review.user_id%></dt>
+                <dd></dd>
+                <dt>Reviews</dt>
+                <dd><%= review.description %></dd>
+                <dt>Rating</dt>
+                <dd><%= review.rating %></dd>
+                <br>
+              <% end %>
             <% end %>
           </div>
         </dl>
