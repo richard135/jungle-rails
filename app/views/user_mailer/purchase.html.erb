@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta content='text/html; charset=UTF-8' http-equiv='Content-Type' />
+  </head>
+  <body>
+    <h1>Thank you for the purchase</h1>
+    <p>Please see below for the total products you have ordered!</p>
+    <p>Your total is: <%= number_to_currency(@order.total_cents/100.00) %></p>
+    <p><% LineItem.where(order_id: @order.id).each do |u| %>
+          <%= u.product_id %>
+      <% end %>
+    </p>
+  </body>
+</html>
