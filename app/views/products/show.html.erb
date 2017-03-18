@@ -32,7 +32,8 @@
             <dd><h5> Login to add some reviews!</h5></dd>
           <% end %>
           </dd>
-          <dd><h3>Reviews</h3></dt>
+          <dd><h3>Total Rating: <%= (@product.reviews.average(:rating)).to_f.round(2) || '*' %></h3></dd>
+          <dd><h3>Reviews</h3></dd>
           <div class="review-table">
             <% @reviews.each do |review| %>
               <% if @product.id === review.product_id %>
