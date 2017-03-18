@@ -10,7 +10,8 @@
         <% @total_items = 0 %>
     <p><% LineItem.where(order_id: @order.id).each do |u| %>
           <%= u.product.name %>
-          <% @total_items += 1 %>
+          <%= u.quantity %>
+          <% @total_items += u.quantity %>
       <% end %>
       The total items are: <%= @total_items %>
     </p>

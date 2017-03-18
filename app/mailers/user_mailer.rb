@@ -3,6 +3,6 @@ class UserMailer < ApplicationMailer
 
   def purchase(order)
     @order = order
-    mail(to: order.email, subject: order.id)
+    mail(to: order.email, subject:  "Order id: #{order.id}")
   end
 end

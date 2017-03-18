@@ -42,8 +42,10 @@
                 <dd><%= review.description %></dd>
                 <dt>Rating</dt>
                 <dd><%= review.rating %></dd>
-                <% if current_user.id === review.user_id %>
-                  <%= link_to "Delete", [@product, review], method: :delete  %>
+                <% if current_user %>
+                  <% if current_user.id === review.user_id %>
+                    <%= link_to "Delete", [@product, review], method: :delete  %>
+                  <% end %>
                 <% end %>
                 <br>
               <% end %>
