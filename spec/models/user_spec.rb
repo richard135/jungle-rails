@@ -68,9 +68,58 @@ RSpec.describe User, type: :model do
 
   describe '.authenticate_with_credentials' do
     describe 'When logging in' do
-      it "must have an email that already exists" do
-        session[:email] = '123'
-
+      it "matching email and password should log in" do
+        @user = User.create({
+          email: '1234@hotmail.com',
+          password: '123',
+          password_confirmation: '123'
+          })
+        @user1 = User.authenticate_with_credentials('1234@Hotmail.com', @user.password)
+        expect(@user1).to_not be nil
+      end
+    end
+    describe 'When logging in' do
+      it "user should need to input a password" do
+        @user = User.create({
+          email: '1234@hotmail.com',
+          password: nil,
+          password_confirmation: nil
+          })
+        @user1 = User.authenticate_with_credentials(@user.email, @user.password)
+        expect(@user1).to be nil
+      end
+    end
+    describe 'When logging in' do
+      it "user should need to input an email" do
+        @user = User.create({
+          email: nil,
+          password: '123',
+          password_confirmation: '123'
+          })
+        @user1 = User.authenticate_with_credentials(nil, @user.password)
+        expect(@user1).to be nil
+      end
+    end
+    describe 'When logging in' do
+      it "emails can have space before and after the email" do
+        @user = User.create({
+          email: '1234@hotmail.com',
+          password: '123',
+          password_confirmation: '123'
+          })
+        @user1 = User.authenticate_with_credentials(' 1234@Hotmail.com ', @user.password)
+        expect(@user1).to_not be nil
+      end
+    end
+    describe 'When logging in' do
+      it "user can have upper cases in the email" do
+        @user = User.create({
+          email: '1234@hotmail.com',
+          password: '123',
+          password_confirmation: '123'
+          })
+        @user1 = User.authenticate_with_credentials('1234@HOtmail.com', @user.password)
+        expect(@user1).to_not be nil
       end
     end
   end
